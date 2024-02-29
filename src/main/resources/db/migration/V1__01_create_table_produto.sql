@@ -5,5 +5,3 @@ CREATE TABLE produtos (
     referencia VARCHAR NOT NULL,
     valor_unitario DECIMAL NOT NULL
 );
-
-
