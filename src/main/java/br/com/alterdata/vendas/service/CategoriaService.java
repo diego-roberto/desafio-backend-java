@@ -1,5 +1,6 @@
 package br.com.alterdata.vendas.service;
 
+import br.com.alterdata.vendas.config.MessageConstants;
 import br.com.alterdata.vendas.dto.CategoriaDTO;
 import br.com.alterdata.vendas.exception.BusinessException;
 import br.com.alterdata.vendas.model.Categoria;
@@ -48,7 +49,7 @@ public class CategoriaService {
 
     public CategoriaDTO obterCategoriaPorId(Long id) {
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Categoria não encontrada"));
+                .orElseThrow(() -> new BusinessException(MessageConstants.MSG_CATEGORIA_NOT_FOUND));
         return modelMapper.map(categoria, CategoriaDTO.class);
     }
 
@@ -62,7 +63,7 @@ public class CategoriaService {
 
     public CategoriaDTO atualizarCategoria(Long id, String novoNomeCategoria) {
         Categoria categoriaAtual = categoriaRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Categoria não encontrada"));
+                .orElseThrow(() -> new BusinessException(MessageConstants.MSG_CATEGORIA_NOT_FOUND));
 
         categoriaAtual.setNome(novoNomeCategoria);
         Categoria updatedCategoria = categoriaRepository.save(categoriaAtual);

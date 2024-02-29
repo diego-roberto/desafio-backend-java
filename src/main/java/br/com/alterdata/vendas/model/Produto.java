@@ -1,11 +1,11 @@
 package br.com.alterdata.vendas.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,9 +15,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Produto {
 
-    @Id @GeneratedValue private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotNull private String nome;
+    @NotNull
+    private String nome;
 
     @NotNull private String descricao;
 

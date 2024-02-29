@@ -3,7 +3,6 @@ package br.com.alterdata.vendas.controller;
 import br.com.alterdata.vendas.dto.ProdutoDTO;
 import br.com.alterdata.vendas.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;

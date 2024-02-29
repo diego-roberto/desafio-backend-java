@@ -1,5 +1,6 @@
 package br.com.alterdata.vendas.service;
 
+import br.com.alterdata.vendas.config.MessageConstants;
 import br.com.alterdata.vendas.dto.CategoriaDTO;
 import br.com.alterdata.vendas.dto.ProdutoDTO;
 import br.com.alterdata.vendas.exception.BusinessException;
@@ -34,21 +35,21 @@ public class ProdutoService {
 
     public ProdutoDTO obterProdutoPorId(Long id) {
         Produto produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Produto não encontrado"));
+                .orElseThrow(() -> new BusinessException(MessageConstants.MSG_PRODUTO_NOT_FOUND));
 
         return modelMapper.map(produto, ProdutoDTO.class);
     }
 
     public List<ProdutoDTO> pesquisarProdutos(Example<ProdutoDTO> example) {
         if (example == null) {
-            throw new BusinessException("Parâmetros inválidos");
+            throw new BusinessException(MessageConstants.MSG_INVALID_PARAMS);
         }
 
         Example<Produto> exampleEntity = Example.of(modelMapper.map(example, Produto.class));
         List<Produto> produtos = produtoRepository.findAll(exampleEntity);
 
         if (produtos.isEmpty()) {
-            throw new BusinessException("Nenhum produto encontrado");
+            throw new BusinessException(MessageConstants.MSG_PRODUTO_NOT_FOUND);
         }
 
         return produtos.stream()
@@ -72,7 +73,7 @@ public class ProdutoService {
 
     public ProdutoDTO updateProdutoCategoria(Long produtoId, String novoNomeCategoria) {
         Produto produto = produtoRepository.findById(produtoId)
-                .orElseThrow(() -> new BusinessException("Produto não encontrado"));
+                .orElseThrow(() -> new BusinessException(MessageConstants.MSG_PRODUTO_NOT_FOUND));
 
         CategoriaDTO categoria = categoriaService.atualizarCategoria(produto.getCategoria().getId(), novoNomeCategoria);
         produto.setCategoria(modelMapper.map(categoria, Categoria.class));
