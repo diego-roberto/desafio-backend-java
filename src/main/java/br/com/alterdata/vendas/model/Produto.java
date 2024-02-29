@@ -1,12 +1,12 @@
 package br.com.alterdata.vendas.model;
 
-import com.sun.istack.NotNull;
-import java.math.BigDecimal;
-import javax.persistence.*;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produtos")
@@ -26,4 +26,9 @@ public class Produto {
     @NotNull
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
 }
