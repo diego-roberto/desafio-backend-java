@@ -1,7 +1,12 @@
 package br.com.alterdata.vendas.integracao.produto;
 
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+
 import br.com.alterdata.vendas.VendasApplication;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,12 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.persistence.EntityManager;
-
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-
 @Slf4j
 @SpringBootTest(
         classes = {VendasApplication.class},
@@ -25,8 +24,7 @@ import static org.hamcrest.CoreMatchers.is;
 @Tag("integracao")
 public class ListarTodosProdutos {
 
-    @Autowired
-    private WebApplicationContext webAppContextSetup;
+    @Autowired private WebApplicationContext webAppContextSetup;
     @Autowired private EntityManager em;
 
     @BeforeEach
@@ -43,11 +41,6 @@ public class ListarTodosProdutos {
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))
-                .body(
-                        "id",
-                        hasItems(
-                                1,
-                                2,
-                                3));
+                .body("id", hasItems(1, 2, 3));
     }
 }
