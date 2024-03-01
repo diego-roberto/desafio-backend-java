@@ -1,4 +1,4 @@
-package br.com.alterdata.vendas.integracao.produto;
+package br.com.alterdata.vendas.integracao.categoria;
 
 import br.com.alterdata.vendas.VendasApplication;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -21,21 +21,22 @@ import static org.hamcrest.CoreMatchers.is;
         classes = {VendasApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag("integracao")
-class ListarTodosProdutos {
+class ListarTodasCategorias {
 
-    @Autowired private WebApplicationContext webAppContextSetup;
+    @Autowired
+    private WebApplicationContext webAppContextSetup;
 
     @BeforeEach
     void init() {
         RestAssuredMockMvc.webAppContextSetup(webAppContextSetup);
     }
 
-    @Sql("/seeds/produtos.sql")
+    @Sql("/seeds/categorias.sql")
     @Test
-    @DisplayName("Deveria listar todos os produtos")
-    void deveriaListarTodosProdutos() {
+    @DisplayName("Deveria listar todas as categorias")
+    void deveriaListarTodasCategorias() {
 
-        when().get("/produtos")
+        when().get("/categorias")
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))
